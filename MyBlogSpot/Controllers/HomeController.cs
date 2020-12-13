@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBlogSpot.Models;
+using MyBlogSpot.Services.Interfaces;
 
 namespace MyBlogSpot.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IBlogSpotService blogService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IBlogSpotService blogService)
         {
             _logger = logger;
+            this.blogService = blogService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            List<BlogPost> blogs =  await blogService.GetBlogPosts();
+
             return View();
         }
 
