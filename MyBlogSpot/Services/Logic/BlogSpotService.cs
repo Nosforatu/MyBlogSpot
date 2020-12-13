@@ -53,6 +53,18 @@ namespace MyBlogSpot.Services.Logic
             return null;
         }
 
+        public async Task<List<BlogPost>> GetBlogPreview()
+        {
+            HttpResponseMessage response = await httpClient.GetAsync($"{config.GetValue<string>("ApiRoot")}/BlogPosts/BlogPostsPrev");
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonResponseString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<BlogPost>>(jsonResponseString);
+            }
+
+            return null;
+        }
+
         public async Task<BlogPost> InsertBlogPost(BlogPost post)
         {
             var messageString = JsonConvert.SerializeObject(post);

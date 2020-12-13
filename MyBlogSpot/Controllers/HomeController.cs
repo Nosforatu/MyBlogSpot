@@ -23,7 +23,7 @@ namespace MyBlogSpot.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<BlogPost> blogs =  await blogService.GetBlogPosts();
+            List<BlogPost> blogs =  await blogService.GetBlogPreview();
 
             return View();
         }

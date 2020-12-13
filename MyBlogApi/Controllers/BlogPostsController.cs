@@ -23,14 +23,23 @@ namespace MyBlogApi.Controllers
             this.context = context;
         }
 
-        // GET: api/BlogPosts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPosts()
         {
             return await context.BlogPosts.ToListAsync();
         }
+        
+        [HttpGet("BlogPostsPrev")]
+        public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPostsPrev()
+        {
+            return await context.BlogPosts.Select(s => new BlogPost() { 
+                BlogPostId = s.BlogPostId,
+                DateInserted = s.DateInserted,
+                Pseudonym = s.Pseudonym,
+                Subject = s.Subject
+            }).ToListAsync();
+        }
 
-        // GET: api/BlogPosts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BlogPost>> GetBlogPost(int id)
         {
@@ -44,9 +53,6 @@ namespace MyBlogApi.Controllers
             return blogPost;
         }
 
-        // PUT: api/BlogPosts/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBlogPost(int id, BlogPost blogPost)
         {
@@ -94,7 +100,6 @@ namespace MyBlogApi.Controllers
             return CreatedAtAction("GetBlogPost", new { id = blogPost.BlogPostId }, blogPost);
         }
 
-        // DELETE: api/BlogPosts/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<BlogPost>> DeleteBlogPost(int id)
         {

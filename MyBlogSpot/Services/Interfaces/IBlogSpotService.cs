@@ -10,6 +10,7 @@ namespace MyBlogSpot.Services.Interfaces
     {
         public Task<BlogPost> GetBlogPost(int id);
         public Task<List<BlogPost>> GetBlogPosts();
+        public Task<List<BlogPost>> GetBlogPreview();
         public Task<int> DeleteBlogPost(int id);
         public Task<BlogPost> InsertBlogPost(BlogPost post);
         public Task<BlogPost> UpdateBlogPost(BlogPost post);
