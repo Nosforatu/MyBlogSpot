@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBlogSpot.Models;
 using MyBlogSpot.Services.Interfaces;
+using MyBlogSpot.ViewModels;
 
 namespace MyBlogSpot.Controllers
 {
@@ -25,7 +26,18 @@ namespace MyBlogSpot.Controllers
         {
             List<BlogPost> blogs =  await blogService.GetBlogPreview();
 
-            return View();
+            List<BlogPrevViewModel> blogViewModels = new List<BlogPrevViewModel>();
+            foreach(var blog in blogs)
+            {
+                blogViewModels.Add(new BlogPrevViewModel() { 
+                    DateInserted = blog.DateInserted,  
+                    Description = blog.Description, 
+                    Pseudonym = blog.Pseudonym, 
+                    Subject = blog.Subject
+                });
+            }
+
+            return View(blogViewModels);
         }
 
         public IActionResult Privacy()
