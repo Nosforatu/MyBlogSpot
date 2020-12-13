@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MyBlogSpot.Services.Interfaces;
+using MyBlogSpot.Services.Logic;
 
 namespace MyBlogSpot
 {
@@ -24,6 +26,8 @@ namespace MyBlogSpot
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSingleton<IBlogSpotService, BlogSpotService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
