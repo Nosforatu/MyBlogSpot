@@ -1,0 +1,22 @@
+﻿
+
+<div class="row">
+    @if (Model.post != null)
+    {
+
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.post.Subject</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">By - @Model.post.Pseudonym</h6>
+                    <p class="card-text">@Model.post.BlogEntry</p>
+                    <span class="card-link">@Model.post.DateInserted.ToString("dd/MM/yyyy")</span>
+                    @if (Model.isAuthenticated)
+                    {
+                        <a href="#" class="card-link">Read...</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

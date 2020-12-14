@@ -24,20 +24,18 @@ namespace MyBlogSpot.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<BlogPost> blogs =  await blogService.GetBlogPreview();
+            List<BlogPost> blogs = await blogService.GetBlogPreview();
+            BlogPrevViewModel blogViewModel = new BlogPrevViewModel();
+            blogViewModel.blogPosts = blogs;
+            return View(blogViewModel);
+        }
 
-            List<BlogPrevViewModel> blogViewModels = new List<BlogPrevViewModel>();
-            foreach(var blog in blogs)
-            {
-                blogViewModels.Add(new BlogPrevViewModel() { 
-                    DateInserted = blog.DateInserted,  
-                    Description = blog.Description, 
-                    Pseudonym = blog.Pseudonym, 
-                    Subject = blog.Subject
-                });
-            }
-
-            return View(blogViewModels);
+        public async Task<ViewResult> Details(int id)
+        {
+            BlogPost blogs = await blogService.GetBlogPost(id);
+            BlogViewModel blogViewModel = new BlogViewModel();
+            blogViewModel.post = blogs;
+            return View(blogViewModel);
         }
 
         public IActionResult Privacy()

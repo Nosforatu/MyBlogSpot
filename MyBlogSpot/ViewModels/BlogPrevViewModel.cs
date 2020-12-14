@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MyBlogSpot.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyBlogSpot.ViewModels
 {
-    public class BlogPrevViewModel
+    public class BlogPrevViewModel : BaseViewModel
     {
-        public string Subject { get; set; }
-        public string Description { get; set; }
-        public string Pseudonym { get; set; }
-        public DateTime DateInserted { get; set; }
+        public List<BlogPost> blogPosts {get;set;}
+        
     }
 }

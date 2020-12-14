@@ -1,15 +1,51 @@
-﻿@model List<MyBlogSpot.ViewModels.BlogPrevViewModel> 
-
+﻿@model MyBlogSpot.ViewModels.BlogPrevViewModel
 <!--Getting data -->
-@foreach(var blog in Model)
-{
-    <li>@blog.Description</li>
-    <li>@blog.DateInserted</li>
-    <li>@blog.Pseudonym</li>
-    <li>@blog.Subject</li>
-}
+
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Corner Blog</h1>
+    <p>
+        "Tis some visitor," I muttered, "tapping at my chamber door- <br/>
+        Only this, and nothing more".
+    </p>
 </div>
+<div class="row">
+    @if (Model.blogPosts != null)
+    {
+        @foreach (var blog in Model.blogPosts)
+        {
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@blog.Subject</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">By - @blog.Pseudonym</h6>
+                        <span class="card-link">@blog.DateInserted.ToString("dd/MM/yyyy")</span>
+                        @if (Model.isAuthenticated)
+                        {
+                            <a href="#" class="card-link">Read...</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+            <div class="col">
+                <h5>
+                    Fill the empty spaces of your heart
+                    The vacant crevices of your soul
+                    With that which completes you
+                    That which enhances the inner peace within you
+                </h5>
+                @if (Model.isAuthenticated)
+                {
+                    <button class="btn btn-primary">Create Blog Entry</button>
+                }
+            </div>
+
+        
+    }
+
+</div>
+
