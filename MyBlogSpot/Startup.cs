@@ -28,6 +28,7 @@ namespace MyBlogSpot
             services.AddControllersWithViews();
 
             services.AddHttpClient<IBlogSpotService, BlogSpotService>();
+            services.AddHttpClient<IAccountService, AccountService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

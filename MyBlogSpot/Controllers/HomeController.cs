@@ -15,15 +15,25 @@ namespace MyBlogSpot.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBlogSpotService blogService;
+        private readonly IAccountService accountService;
 
-        public HomeController(ILogger<HomeController> logger, IBlogSpotService blogService)
+        public HomeController(ILogger<HomeController> logger, IBlogSpotService blogService, IAccountService accountService)
         {
             _logger = logger;
             this.blogService = blogService;
+            this.accountService = accountService;
         }
 
         public async Task<IActionResult> Index()
         {
+
+            var result = accountService.Login(new Account() { 
+                Password = "Password",
+                Pseudonym = "userName",
+                Email = "EMAIL",
+                Id = 1
+            });
+
             List<BlogPost> blogs = await blogService.GetBlogPreview();
             BlogPrevViewModel blogViewModel = new BlogPrevViewModel();
             blogViewModel.blogPosts = blogs;
