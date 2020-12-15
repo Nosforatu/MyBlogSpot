@@ -43,6 +43,28 @@ namespace MyBlogSpot.Controllers
             return View();
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(BlogPost post)
+        {
+            //Validation
+            if(ModelState.IsValid)
+            {
+
+                //if (string.IsNullOrEmpty(post.Subject))
+                //    ModelState.AddModelError("Subject", "Please add subject");
+
+            }
+
+            await blogService.InsertBlogPost(post);
+            return RedirectToAction("Index");
+            
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
