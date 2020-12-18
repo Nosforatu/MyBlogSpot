@@ -8,55 +8,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyBlogApi.Context;
 using MyBlogApi.Models;
+using MyBlogApi.Services.Interfaces;
 
 namespace MyBlogApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class BlogPostsController : ControllerBase
     {
-        private readonly MyBlogPostContext context;
+        private readonly IBlogService blogService;
 
-        public BlogPostsController(MyBlogPostContext context)
+        public BlogPostsController(IBlogService blogService)
         {
-            this.context = context;
+            this.blogService = blogService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPosts()
         {
-            return await context.BlogPosts.ToListAsync();
+            return await blogService.GetBlogPosts();
         }
         
         [HttpGet("BlogPostsPrev")]
         public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPostsPrev()
         {
-            return await context.BlogPosts.Select(s => new BlogPost() { 
-                BlogPostId = s.BlogPostId,
-                DateInserted = s.DateInserted,
-                Pseudonym = s.Pseudonym,
-                Subject = s.Subject
-            }).ToListAsync();
+            return await blogService.GetBlogPostsPrev();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<BlogPost>> GetBlogPost(int id)
         {
-            var blogPost = await context.BlogPosts.FindAsync(id);
-
-            if (blogPost == null)
+            try
             {
-                return NotFound();
-            }
+                var blog = await blogService.GetBlogPost(id);
+                if (blog == null)
+                    return NotFound();
 
-            return blogPost;
+                return blog;
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBlogPost(int id, BlogPost blogPost)
         {
-            var post = context.BlogPosts.Where(w => w.BlogPostId == id).FirstOrDefault();
+            var post = await blogService.GetBlogPost(id);
             
             //Exists
             if(post == null)
@@ -72,9 +71,7 @@ namespace MyBlogApi.Controllers
 
             try
             {
-                context.Update(blogPost);
-
-                await context.SaveChangesAsync();
+                await blogService.UpdateBlogPost(blogPost);
 
                 return Ok();
             } catch(Exception e)
@@ -94,8 +91,7 @@ namespace MyBlogApi.Controllers
                 return BadRequest();
             }
 
-            context.BlogPosts.Add(blogPost);
-            await context.SaveChangesAsync();
+            await blogService.InsertBlogPost(blogPost);
 
             return CreatedAtAction("GetBlogPost", new { id = blogPost.BlogPostId }, blogPost);
         }
@@ -103,14 +99,13 @@ namespace MyBlogApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BlogPost>> DeleteBlogPost(int id)
         {
-            var blogPost = await context.BlogPosts.Where(w => w.BlogPostId == id).FirstOrDefaultAsync();
+            var blogPost = await blogService.GetBlogPost(id);
             if (blogPost == null)
             {
                 return NotFound();
             }
 
-            context.BlogPosts.Remove(blogPost);
-            await context.SaveChangesAsync();
+            await blogService.DeleteBlogPost(id);
 
             return blogPost;
         }

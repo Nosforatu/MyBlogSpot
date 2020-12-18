@@ -22,16 +22,35 @@ namespace MyBlogSpot.Services.Logic
             this.config = config;
         }
 
-        public async Task Login(Account account)
+        public async Task<bool> Create(Account account)
         {
-            var messageString = JsonConvert.SerializeObject(account);
-            var contentData = new StringContent(messageString, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync($"{config.GetValue<string>("ApiRoot")}/Account/Login", contentData);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string jsonResponseString = await response.Content.ReadAsStringAsync();
+                var messageString = JsonConvert.SerializeObject(account);
+                var contentData = new StringContent(messageString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await httpClient.PostAsync($"{config.GetValue<string>("ApiRoot")}/Account/Create", contentData);
+                return response.IsSuccessStatusCode;
             }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
+        public async Task<bool> Login(Account account)
+        {
+            try
+            {
+                var messageString = JsonConvert.SerializeObject(account);
+                var contentData = new StringContent(messageString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await httpClient.PostAsync($"{config.GetValue<string>("ApiRoot")}/Account/Login", contentData);
+                return response.IsSuccessStatusCode;
+            } catch(Exception )
+            {
+                return false;
+            }
+            
+            
         }
     }
 }

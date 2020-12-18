@@ -41,6 +41,18 @@ namespace MyBlogApi.Services.Logic
             return await dbContext.BlogPosts.ToListAsync();
         }
 
+        public async Task<List<BlogPost>> GetBlogPostsPrev()
+        {
+            return await dbContext.BlogPosts.Select(s => new BlogPost()
+            {
+                BlogPostId = s.BlogPostId,
+                DateInserted = s.DateInserted,
+                Pseudonym = s.Pseudonym,
+                Subject = s.Subject,
+                Description = s.Description
+            }).ToListAsync();
+        }
+
         public async Task<BlogPost> InsertBlogPost(BlogPost post)
         {
             post.DateInserted = DateTime.Now;

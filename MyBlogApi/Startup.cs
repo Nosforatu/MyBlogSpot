@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using MyBlogApi.Context;
+using MyBlogApi.Services.Interfaces;
+using MyBlogApi.Services.Logic;
 using MyBlogApi.Utils;
 
 namespace MyBlogApi
@@ -35,10 +37,12 @@ namespace MyBlogApi
             var jwtConfig = Configuration.GetSection("jwtTokenConfig").Get<JWTTokenConfig>();
             services.AddSingleton(jwtConfig);
 
-            services.AddAuthentication(x => {
+            services.AddAuthentication(x =>
+            {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x => {
+            }).AddJwtBearer(x =>
+            {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
@@ -50,7 +54,9 @@ namespace MyBlogApi
                 };
             });
 
-
+            services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IJWTService, JWTService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
 
@@ -70,8 +76,8 @@ namespace MyBlogApi
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

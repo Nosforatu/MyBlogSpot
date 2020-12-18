@@ -36,13 +36,13 @@ namespace MyBlogApi.Services.Logic
         public async Task<User> GetUser(string username, string password)
         {
             return await dbContext.Users
-                .Where(w => w.Pseudonym == username && w.Password == password)
+                .Where(w => w.Username == username && w.Password == password)
                 .FirstOrDefaultAsync();
         }
 
         public async Task<bool> ValidateUser(User user)
         {
-            var selectedUser = await dbContext.Users.Where(w => w.Pseudonym == user.Pseudonym && w.Password == user.Password).FirstOrDefaultAsync();
+            var selectedUser = await dbContext.Users.Where(w => w.Username == user.Username && w.Password == user.Password).FirstOrDefaultAsync();
             return (selectedUser != null);
         }
     }

@@ -1,22 +1,19 @@
 ﻿
 
-<div class="row">
-    @if (Model.post != null)
-    {
-
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.post.Subject</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">By - @Model.post.Pseudonym</h6>
-                    <p class="card-text">@Model.post.BlogEntry</p>
-                    <span class="card-link">@Model.post.DateInserted.ToString("dd/MM/yyyy")</span>
-                    @if (Model.isAuthenticated)
-                    {
-                        <a href="#" class="card-link">Read...</a>
-                    }
+@if (Model.post != null)
+{
+    <div class="landing fill-height">
+        <div class="row my-4 fill-height">
+            <div class="flex-grow-1 card mb-4 grey darken-4">
+                <div class="card-content">
+                    <input id="subject" placeholder="@Model.post.Subject" readonly maxlength="50" class="teal-text" />
+                    <textarea id="description" rows="4" placeholder="@Model.post.Description" readonly maxlength="200" data-length="200"></textarea>
+                    <hr />
+                    <textarea id="body" rows="20" placeholder="@Model.post.BlogEntry" readonly></textarea>
+                    <small>@Model.post.Pseudonym - @Model.post.DateInserted.ToString("dd/MM/yyyy")</small>
                 </div>
             </div>
         </div>
-    }
-</div>
+    </div>
+}
+

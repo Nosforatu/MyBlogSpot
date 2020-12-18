@@ -1,71 +1,146 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿html, body {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.brand-logo {
+    font-family: 'Raleway', sans-serif;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.fill-height {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.landing {
+    background: url(../assets/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
+    .landing > .container {
+        height: 100%;
+    }
+
+        .landing > .container > .row {
+            position: relative;
+            top: 50%;
+            transform: translateY(-60%);
+        }
+
+.landing-fill {
+    height: -webkit-fill-available;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+/* Display */
+.align-center {
+    align-items: center;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.justify-center {
+    justify-content: center;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.flex-grow-0 {
+    flex-grow: 0;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.flex-grow-1 {
+    flex-grow: 1;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.ma-0 {
+    margin: 0 !important;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+.my-4 {
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+.mb-0 {
+    margin-bottom: 0;
 }
+
+.mb-4 {
+    margin-bottom: 16px;
+}
+
+.pa-0 {
+    padding: 0 !important;
+}
+
+.pb-4 {
+    padding-bottom: 16px !important;
+}
+
+.pa-6 {
+    padding: 24px;
+}
+
+/* Icons */
+.left {
+    margin-right: 4px;
+}
+
+.right {
+    margin-left: 4px;
+}
+
+/* Font */
+.card-title {
+    font-family: 'Raleway', sans-serif;
+}
+
+/* Create */
+input#subject,
+textarea {
+    border: none;
+    box-shadow: none;
+}
+
+input#subject {
+    font-size: 32px;
+    font-family: 'Raleway', sans-serif;
+}
+
+textarea, p, span {
+    height: auto;
+    color: white;
+}
+
+    textarea:focus {
+        outline: none;
+    }
+
+    textarea#description {
+        resize: none;
+    }
+
+    textarea#body {
+        height: calc(100vh - 373px);
+        resize: vertical;
+    }
+
+hr {
+    border-width: 0.5px;
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 16px 0;
+}
+
+.blog-heading {
+    padding: 20px;
+    margin: 0px;
+    color: white;
+    background-color: #282828 !important;
+}
+
+.sizing {
+    min-width:600px;
+}
+
+small {
+    color: #7a7a7a !important
+} 

@@ -4,39 +4,38 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 class="blog-heading grey.darken-4">Create</h1>
 
-<h4>BlogPost</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="landing">
+    <div class="">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
-                <input asp-for="Subject" class="form-control" />
-                <span asp-validation-for="Subject" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BlogEntry" class="control-label"></label>
-                <input asp-for="BlogEntry" class="form-control" />
-                <span asp-validation-for="BlogEntry" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class=" fill-height">
+                <div class="row my-4 fill-height">
+                    <div class="flex-grow-1 card mb-4 grey darken-4">
+                        <div class="card-content">
+                            <input id="subject" placeholder="Subject" required maxlength="50" class="teal-text" asp-for="Subject" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                            <input id="Pseudonym" placeholder="Pseudonym" required maxlength="50" class="teal-text" asp-for="Pseudonym" />
+                            <span asp-validation-for="Pseudonym" class="text-danger"></span>
+                            <hr />
+                            <textarea id="description" rows="4" placeholder="Description" required maxlength="200" data-length="200" asp-for="Description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <hr />
+                            <textarea id="body" rows="20" placeholder="Write your story..." asp-for="BlogEntry" required></textarea>
+                            <span asp-validation-for="BlogEntry" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-0 right-align">
+                        <button type="submit" class="waves-effect waves-light btn ma-0"> Post </button>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -27,6 +27,15 @@ namespace MyBlogSpot
         {
             services.AddControllersWithViews();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddHttpClient<IBlogSpotService, BlogSpotService>();
             services.AddHttpClient<IAccountService, AccountService>();
         }
@@ -48,6 +57,8 @@ namespace MyBlogSpot
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             //app.UseAuthorization();
 

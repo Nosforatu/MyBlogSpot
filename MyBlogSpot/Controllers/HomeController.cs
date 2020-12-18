@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBlogSpot.Models;
@@ -26,22 +27,19 @@ namespace MyBlogSpot.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            var result = accountService.Login(new Account() { 
-                Password = "Password",
-                Pseudonym = "userName",
-                Email = "EMAIL",
-                Id = 1
-            });
-
             List<BlogPost> blogs = await blogService.GetBlogPreview();
             BlogPrevViewModel blogViewModel = new BlogPrevViewModel();
             blogViewModel.blogPosts = blogs;
+
+            HttpContext.Session.SetString("auth", "true");
+
+            blogViewModel.isAuthenticated = Convert.ToBoolean(HttpContext.Session.GetString("auth"));
             return View(blogViewModel);
         }
 
         public async Task<ViewResult> Details(int id)
         {
+            var auth = Convert.ToBoolean(HttpContext.Session.GetString("auth"));
             BlogPost blogs = await blogService.GetBlogPost(id);
             BlogViewModel blogViewModel = new BlogViewModel();
             blogViewModel.post = blogs;
@@ -64,9 +62,6 @@ namespace MyBlogSpot.Controllers
             //Validation
             if(ModelState.IsValid)
             {
-
-                //if (string.IsNullOrEmpty(post.Subject))
-                //    ModelState.AddModelError("Subject", "Please add subject");
 
             }
 

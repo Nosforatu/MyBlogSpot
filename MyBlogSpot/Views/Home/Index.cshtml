@@ -1,36 +1,48 @@
 ﻿@model MyBlogSpot.ViewModels.BlogPrevViewModel
 <!--Getting data -->
 
+<div class="landing">
+    <div class="text-center blog-heading grey.darken-4">
 
-<div class="text-center">
-    <h1 class="display-4">Corner Blog</h1>
-    <p>
-        "Tis some visitor," I muttered, "tapping at my chamber door- <br/>
-        Only this, and nothing more".
-    </p>
-</div>
-<div class="row">
-    @if (Model.blogPosts != null)
-    {
-        @foreach (var blog in Model.blogPosts)
+        <h1 class="display-4">Corner Blog</h1>
+        <p>
+            "Tis some visitor," I muttered, "tapping at my chamber door- <br />
+            Only this, and nothing more".
+        </p>
+
+        @if (Model.isAuthenticated)
         {
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">@blog.Subject</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">By - @blog.Pseudonym</h6>
-                        <span class="card-link">@blog.DateInserted.ToString("dd/MM/yyyy")</span>
+            <a class="waves-effect waves-light btn ma-0 float-right" href="/Home/Create">Create</a>
+        }
+    </div>
+   
+    
+    <div class="row">
+        @if (Model.blogPosts != null)
+        {
+            @foreach (var blog in Model.blogPosts)
+            {
+                <div class="col" style="float:none; max-width:600px; margin-left:auto; margin-right:auto;">
+                    <div class="my-4 fill-height">
+                        <div class="flex-grow-1 card mb-4 grey darken-4">
+                            <div class="card-content">
+                                <input id="subject" placeholder="@blog.Subject" readonly maxlength="50" class="teal-text" />
+
+                                <textarea id="description" rows="4" placeholder="@blog.Description" readonly maxlength="200" data-length="200"></textarea>
+                                <hr />
+                                <small>@blog.Pseudonym - @blog.DateInserted.ToString("dd/MM/yyyy")</small>
+                            </div>
+                        </div>
                         @if (Model.isAuthenticated)
                         {
-                            <a href="#" class="card-link">Read...</a>
+                            <a class="waves-effect waves-light btn ma-0" href="/Home/Details/@blog.BlogPostId">Read...</a>
                         }
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
-    else
-    {
+        else
+        {
             <div class="col">
                 <h5>
                     Fill the empty spaces of your heart
@@ -44,8 +56,68 @@
                 }
             </div>
 
-        
-    }
+
+        }
+
+    </div>
+
+
+    @* <div class="landing fill-height">
+            <div class="container">
+                <div class="row">
+                    <div class="col s6 offset-s3">
+                        <div class="card grey darken-4">
+                            <!-- Sign up -->
+                            <div class="card-content white-text">
+                                <span class="card-title pb-4"> Create an account </span>
+                                <div class="input-field">
+                                    <input id="email" type="email" class="validate white-text" autofocus>
+                                    <label for="email"> Email </label>
+                                    <span class="helper-text" data-error="Email is invalid"></span>
+                                </div>
+                                <div class="input-field">
+                                    <input id="password" type="password" class="validate white-text">
+                                    <label for="password"> Password </label>
+                                    <span class="helper-text" data-error="Password is invalid"></span>
+                                </div>
+                                <div class="input-field">
+                                    <input id="confirm" type="password" class="validate white-text">
+                                    <label for="confirm"> Confirm password </label>
+                                    <span class="helper-text" data-error="Passwords do not match"></span>
+                                </div>
+                                <div class="row ma-0">
+                                    <span class="white-text"> Already have an account? <a class="waves-effect waves-teal teal-text btn-flat"> Login </a> </span>
+                                </div>
+                            </div>
+                            <div class="card-action right-align">
+                                <button type="submit" class="waves-effect waves-light btn ma-0"> Sign up </button>
+                            </div>
+                        </div>
+                        <!-- Login -->
+                        <div class="card grey darken-4">
+                            <div class="card-content white-text">
+                                <span class="card-title pb-4"> Login </span>
+                                <div class="input-field">
+                                    <input id="email" type="email" class="validate white-text" autofocus>
+                                    <label for="email"> Email </label>
+                                    <span class="helper-text" data-error="Email is invalid"></span>
+                                </div>
+                                <div class="input-field">
+                                    <input id="password" type="password" class="validate white-text">
+                                    <label for="password"> Password </label>
+                                    <span class="helper-text" data-error="Password is invalid"></span>
+                                </div>
+                                <div class="row ma-0">
+                                    <span class="white-text"> Don't have an account yet? <a class="waves-effect waves-teal teal-text btn-flat"> Sign up </a> </span>
+                                </div>
+                            </div>
+                            <div class="card-action right-align">
+                                <button type="submit" class="waves-effect waves-light btn ma-0"> Login </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> *@
 
 </div>
-

@@ -8,6 +8,7 @@ namespace MyBlogSpot.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task Login(Account account);
+        Task<bool> Login(Account account);
+        Task<bool> Create(Account account);
     }
 }
