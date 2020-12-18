@@ -106,7 +106,7 @@ input#subject {
     font-family: 'Raleway', sans-serif;
 }
 
-textarea, p, span {
+textarea, p, span, input {
     height: auto;
     color: white;
 }
